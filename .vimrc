@@ -21,6 +21,7 @@ set expandtab
 set number
 set textwidth=80
 set fo+=t
+"colorscheme blackboard
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
@@ -32,8 +33,9 @@ syntax on
 filetype plugin indent on
 
 nnoremap <silent> <F9> :TagbarToggle<CR>
-"Added by android-vim:
 set tags+=/home/gskoraczynski/.vim/tags
+
+"Added by android-vim:
 "autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 "let g:SuperTabDefaultCompletionType = 'context'
 
