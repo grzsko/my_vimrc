@@ -38,6 +38,8 @@ set tags+=/home/gskoraczynski/.vim/tags
 "let g:SuperTabDefaultCompletionType = 'context'
 
 nnoremap <silent> <F8> :NERDTree<CR>
+"Sometimes there is a problem with badly compiled vim, use
+"let g:NERDTreeDirArrows=0
 
 nnoremap <F3> :NumbersToggle<CR>
 nnoremap <F4> :NumbersOnOff<CR>
