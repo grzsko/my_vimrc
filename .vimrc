@@ -1,8 +1,39 @@
-" Pathogen
-" filetype off " Pathogen needs to run before plugin indent on
-" call pathogen#runtime_append_all_bundles()
-" call pathogen#helptags() " generate helptags for everything in 'runtimepath'
-" filetype plugin indent on
+" First lines are required by vundle
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+" list of installed plugins
+Plugin 'sjl/gundo.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+" Consider switching to syntastic (requires some configuration)
+" Plugin 'nvie/vim-flake8'
+Plugin 'majutsushi/tagbar'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-fugitive'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plugin 'scrooloose/syntastic'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'neovimhaskell/haskell-vim'
+Plugin 'eagletmt/neco-ghc'
+Plugin 'Twinside/vim-hoogle'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+" end of vundle lines
+
+set t_Co=256
 syntax enable
 set showmode
 set showcmd
@@ -19,32 +50,80 @@ set shiftround
 set autoindent
 set expandtab
 set number
-set textwidth=80
+set textwidth=79
+set colorcolumn=80
 set fo+=t
-"colorscheme blackboard
+
+colorscheme desert
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
 
-call pathogen#infect()
-call pathogen#helptags()
 syntax on
-filetype plugin indent on
 
-nnoremap <silent> <F9> :TagbarToggle<CR>
-set tags+=/home/gskoraczynski/.vim/tags
+" For now not used python plugin
+"
+" noremap <silent> <F3> :Autoformat<CR>
+" let g:formatdef_autopep8 = "autopep8 - "
+" let g:formatters_python = ['autopep8']
 
-"Added by android-vim:
-"autocmd Filetype java setlocal omnifunc=javacomplete#Complete
-"let g:SuperTabDefaultCompletionType = 'context'
-
-nnoremap <silent> <F8> :NERDTree<CR>
+" NERDTree
+"
+nnoremap <silent> <F5> :NERDTreeToggle<CR>
 "Sometimes there is a problem with badly compiled vim, use
 "let g:NERDTreeDirArrows=0
 
-nnoremap <F3> :NumbersToggle<CR>
-nnoremap <F4> :NumbersOnOff<CR>
+" For unused number plugin
+"
+" nnoremap <F3> :NumbersToggle<CR>
+" nnoremap <F4> :NumbersOnOff<CR>
 
-nnoremap <F5> :GundoToggle<CR>
+" Tagbar
+"
+nnoremap <silent> <F9> :TagbarToggle<CR>
 
+" Gundo
+"
+nnoremap <F8> :GundoToggle<CR>
+" Gundo display on right side (on left there is nerdtree)
+let g:gundo_right = 1
+
+" For pep8
+"
+" let g:pep8_map='<leader>8'
+
+" Something for airline
+"
+set laststatus=2
+
+" Ctrlp options
+"
+set wildignore+=*/venv/*
+
+" Latex-box options
+"
+" For SyncTex and Skim
+let g:LatexBox_latexmk_options
+            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
+
+" Comment this mapping on linux
+map <silent> <Leader>ls :silent
+        \ !/Applications/Skim.app/Contents/SharedSupport/displayline
+        \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
+        \ "%:p" <CR>
+
+let g:LatexBox_latexmk_preview_continuously = 1
+let g:LatexBox_quickfix = 2
+let g:LatexBox_latexmk_async = 1
+" ]] closes last environment
+imap ]] <Plug>LatexCloseCurEnv
+
+" Haskell-vim options
+"
+let g:haskell_enable_quantification = 1
+let g:haskell_enable_recursivedo = 1
+let g:haskell_enable_arrowsyntax = 1
+let g:haskell_enable_pattern_synonyms = 1
+let g:haskell_enable_typeroles = 1
+let g:haskell_enable_static_pointers = 1
