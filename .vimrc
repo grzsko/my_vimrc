@@ -15,13 +15,19 @@ Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-Plugin 'nvie/vim-flake8'
+" Consider switching to syntastic (requires some configuration)
+" Plugin 'nvie/vim-flake8'
 Plugin 'majutsushi/tagbar'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'davidhalter/jedi-vim'
-
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plugin 'scrooloose/syntastic'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'neovimhaskell/haskell-vim'
+Plugin 'eagletmt/neco-ghc'
+Plugin 'Twinside/vim-hoogle'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -47,7 +53,8 @@ set number
 set textwidth=79
 set colorcolumn=80
 set fo+=t
-colorscheme monokai
+
+colorscheme desert
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
@@ -55,31 +62,68 @@ inoremap {}     {}
 
 syntax on
 
-noremap <silent> <F3> :Autoformat<CR>
-let g:formatdef_autopep8 = "autopep8 - "
-let g:formatters_python = ['autopep8']
+" For now not used python plugin
+"
+" noremap <silent> <F3> :Autoformat<CR>
+" let g:formatdef_autopep8 = "autopep8 - "
+" let g:formatters_python = ['autopep8']
 
-"Added by android-vim:
-"autocmd Filetype java setlocal omnifunc=javacomplete#Complete
-"let g:SuperTabDefaultCompletionType = 'context'
-
+" NERDTree
+"
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
 "Sometimes there is a problem with badly compiled vim, use
 "let g:NERDTreeDirArrows=0
 
+" For unused number plugin
+"
 " nnoremap <F3> :NumbersToggle<CR>
 " nnoremap <F4> :NumbersOnOff<CR>
- 
+
+" Tagbar
+"
 nnoremap <silent> <F9> :TagbarToggle<CR>
+
+" Gundo
+"
 nnoremap <F8> :GundoToggle<CR>
 " Gundo display on right side (on left there is nerdtree)
 let g:gundo_right = 1
 
 " For pep8
+"
 " let g:pep8_map='<leader>8'
 
 " Something for airline
+"
 set laststatus=2
 
 " Ctrlp options
+"
 set wildignore+=*/venv/*
+
+" Latex-box options
+"
+" For SyncTex and Skim
+let g:LatexBox_latexmk_options
+            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
+
+" Comment this mapping on linux
+map <silent> <Leader>ls :silent
+        \ !/Applications/Skim.app/Contents/SharedSupport/displayline
+        \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
+        \ "%:p" <CR>
+
+let g:LatexBox_latexmk_preview_continuously = 1
+let g:LatexBox_quickfix = 2
+let g:LatexBox_latexmk_async = 1
+" ]] closes last environment
+imap ]] <Plug>LatexCloseCurEnv
+
+" Haskell-vim options
+"
+let g:haskell_enable_quantification = 1
+let g:haskell_enable_recursivedo = 1
+let g:haskell_enable_arrowsyntax = 1
+let g:haskell_enable_pattern_synonyms = 1
+let g:haskell_enable_typeroles = 1
+let g:haskell_enable_static_pointers = 1
