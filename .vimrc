@@ -97,6 +97,8 @@ set wildignore+=*/venv/*
 " For SyncTex and Skim (only mac)
 " let g:LatexBox_latexmk_options
 "            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
+" let g:LatexBox_latexmk_options
+"            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
 
 " Comment this mapping on linux
 " map <silent> <Leader>ls :silent
@@ -110,6 +112,13 @@ let g:LatexBox_latexmk_async = 0 " on my linux vim, not server support
 " ]] closes last environment
 imap ]] <Plug>LatexCloseCurEnv
 
+" Syntastic options
+"
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_python_checkers = ['pep8', 'pylint']
+" in order to automatically jumping
+let g:syntastic_always_populate_loc_list = 1
+
 " Haskell-vim options
 "
 let g:haskell_enable_quantification = 1
@@ -119,12 +128,9 @@ let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
 
-" Syntastic options
+" neco-ghc options
 "
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_python_checkers = ['pep8', 'pylint']
-" in order to automatically jumping
-let g:syntastic_always_populate_loc_list = 1
+let g:necoghc_enable_detailed_browse = 1
 
 " Pydocstring settings
 "
