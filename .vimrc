@@ -15,13 +15,14 @@ Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-" Consider switching to syntastic (requires some configuration)
-" Plugin 'nvie/vim-flake8'
 Plugin 'majutsushi/tagbar'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
+" For syntastic jumping
+Plugin 'tpope/vim-unimpaired'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'heavenshell/vim-pydocstring'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'scrooloose/syntastic'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -62,12 +63,6 @@ inoremap {}     {}
 
 syntax on
 
-" For now not used python plugin
-"
-" noremap <silent> <F3> :Autoformat<CR>
-" let g:formatdef_autopep8 = "autopep8 - "
-" let g:formatters_python = ['autopep8']
-
 " NERDTree
 "
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
@@ -89,10 +84,6 @@ nnoremap <F8> :GundoToggle<CR>
 " Gundo display on right side (on left there is nerdtree)
 let g:gundo_right = 1
 
-" For pep8
-"
-" let g:pep8_map='<leader>8'
-
 " Something for airline
 "
 set laststatus=2
@@ -103,21 +94,30 @@ set wildignore+=*/venv/*
 
 " Latex-box options
 "
-" For SyncTex and Skim
-let g:LatexBox_latexmk_options
-            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
+" For SyncTex and Skim (only mac)
+" let g:LatexBox_latexmk_options
+"            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
+" let g:LatexBox_latexmk_options
+"            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
 
 " Comment this mapping on linux
-map <silent> <Leader>ls :silent
-        \ !/Applications/Skim.app/Contents/SharedSupport/displayline
-        \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
-        \ "%:p" <CR>
-
+" map <silent> <Leader>ls :silent
+"         \ !/Applications/Skim.app/Contents/SharedSupport/displayline
+"         \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
+"         \ "%:p" <CR>
+"
 let g:LatexBox_latexmk_preview_continuously = 1
 let g:LatexBox_quickfix = 2
-let g:LatexBox_latexmk_async = 1
+let g:LatexBox_latexmk_async = 0 " on my linux vim, not server support
 " ]] closes last environment
 imap ]] <Plug>LatexCloseCurEnv
+
+" Syntastic options
+"
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_python_checkers = ['pep8', 'pylint']
+" in order to automatically jumping
+let g:syntastic_always_populate_loc_list = 1
 
 " Haskell-vim options
 "
@@ -127,3 +127,11 @@ let g:haskell_enable_arrowsyntax = 1
 let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
+
+" neco-ghc options
+"
+let g:necoghc_enable_detailed_browse = 1
+
+" Pydocstring settings
+"
+set softtabstop=4
