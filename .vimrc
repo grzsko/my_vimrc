@@ -103,7 +103,7 @@ set wildignore+=*/venv/*
 
 " Latex-box options
 "
-" For SyncTex and Skim
+" For SyncTex and Skim (only mac)
 let g:LatexBox_latexmk_options
             \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
 
@@ -127,3 +127,7 @@ let g:haskell_enable_arrowsyntax = 1
 let g:haskell_enable_pattern_synonyms = 1
 let g:haskell_enable_typeroles = 1
 let g:haskell_enable_static_pointers = 1
+
+" neco-ghc options
+"
+let g:necoghc_enable_detailed_browse = 1
