@@ -63,12 +63,6 @@ inoremap {}     {}
 
 syntax on
 
-" For now not used python plugin
-"
-" noremap <silent> <F3> :Autoformat<CR>
-" let g:formatdef_autopep8 = "autopep8 - "
-" let g:formatters_python = ['autopep8']
-
 " NERDTree
 "
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
@@ -89,10 +83,6 @@ nnoremap <silent> <F9> :TagbarToggle<CR>
 nnoremap <F8> :GundoToggle<CR>
 " Gundo display on right side (on left there is nerdtree)
 let g:gundo_right = 1
-
-" For pep8
-"
-" let g:pep8_map='<leader>8'
 
 " Something for airline
 "
