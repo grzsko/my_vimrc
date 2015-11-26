@@ -29,6 +29,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'neovimhaskell/haskell-vim'
 Plugin 'eagletmt/neco-ghc'
 Plugin 'Twinside/vim-hoogle'
+Plugin 'eagletmt/ghcmod-vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
