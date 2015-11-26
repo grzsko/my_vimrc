@@ -98,8 +98,6 @@ set wildignore+=*/venv/*
 " For SyncTex and Skim (only mac)
 " let g:LatexBox_latexmk_options
 "            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
-" let g:LatexBox_latexmk_options
-"            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
 
 " Comment this mapping on linux
 " map <silent> <Leader>ls :silent
