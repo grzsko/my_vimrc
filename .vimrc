@@ -55,6 +55,9 @@ set number
 set textwidth=79
 set colorcolumn=80
 set fo+=t
+" For spell checking
+set spelllang=en_gb
+set spell
 
 colorscheme desert
 inoremap {      {}<Left>
