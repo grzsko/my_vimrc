@@ -10,6 +10,9 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+" list of installed colorschemes
+Plugin 'tomasr/molokai'
+Plugin 'sickill/vim-monokai'
 " list of installed plugins
 Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
@@ -23,6 +26,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'heavenshell/vim-pydocstring'
+Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'scrooloose/syntastic'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -30,6 +34,9 @@ Plugin 'neovimhaskell/haskell-vim'
 Plugin 'eagletmt/neco-ghc'
 Plugin 'Twinside/vim-hoogle'
 Plugin 'eagletmt/ghcmod-vim'
+" Dependency of ghcmod-vim, requires to run make
+Plugin 'Shougo/vimproc.vim'
+Plugin 'chrisbra/csv.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -45,7 +52,6 @@ runtime ftplugin/man.vim
 set nowrap
 set hlsearch
 set showmatch
-set spelllang=pl_pl
 set tabstop=4
 set cindent shiftwidth=4
 set shiftround
@@ -59,7 +65,8 @@ set fo+=t
 set spelllang=en_gb
 set spell
 
-colorscheme desert
+autocmd BufEnter * colorscheme molokai
+autocmd BufEnter *.py colorscheme monokai
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
@@ -72,11 +79,6 @@ syntax on
 nnoremap <silent> <F5> :NERDTreeToggle<CR>
 "Sometimes there is a problem with badly compiled vim, use
 "let g:NERDTreeDirArrows=0
-
-" For unused number plugin
-"
-" nnoremap <F3> :NumbersToggle<CR>
-" nnoremap <F4> :NumbersOnOff<CR>
 
 " Tagbar
 "
