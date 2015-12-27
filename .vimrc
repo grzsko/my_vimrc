@@ -36,7 +36,15 @@ Plugin 'Twinside/vim-hoogle'
 Plugin 'eagletmt/ghcmod-vim'
 " Dependency of ghcmod-vim, requires to run make
 Plugin 'Shougo/vimproc.vim'
-Plugin 'chrisbra/csv.vim'
+" It has problems with opening larger files
+" Plugin 'chrisbra/csv.vim'
+" Requires cowsay and fortune
+Plugin 'mhinz/vim-startify'
+Plugin 'mattboehm/vim-unstack'
+Plugin 'renyard/vim-git-flow-format'
+Plugin 'craigemery/vim-autotag'
+Plugin 'sudo.vim'
+Plugin 'mattboehm/vim-accordion'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -139,3 +147,7 @@ let g:necoghc_enable_detailed_browse = 1
 " Pydocstring settings
 "
 set softtabstop=4
+
+" Startify settings
+let g:startify_custom_header =
+      \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val') + ['','']
