@@ -36,6 +36,7 @@ Plugin 'Twinside/vim-hoogle'
 Plugin 'eagletmt/ghcmod-vim'
 " Dependency of ghcmod-vim, requires to run make
 Plugin 'Shougo/vimproc.vim'
+Plugin 'neapel/vim-bnfc-syntax'
 " It has problems with opening larger files
 " Plugin 'chrisbra/csv.vim'
 " Requires cowsay and fortune
@@ -45,7 +46,7 @@ Plugin 'renyard/vim-git-flow-format'
 Plugin 'craigemery/vim-autotag'
 Plugin 'sudo.vim'
 Plugin 'mattboehm/vim-accordion'
-
+Plugin 'justincampbell/vim-eighties'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " end of vundle lines
