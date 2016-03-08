@@ -1,3 +1,9 @@
+" Grze_Sko actual configuration of vim.
+" Mainly containts a list of plugins and configs required by plugins. Plugins
+" are managed by Vundle, usually updating of this file requires typing
+" :PluginClean and :PluginInstall. Some plugins require additional
+" configuration, usually described in plugins' list.
+
 " First lines are required by vundle
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -28,14 +34,20 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
+" Plugin 'lervag/vimtex'
 Plugin 'scrooloose/syntastic'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'neovimhaskell/haskell-vim'
-Plugin 'eagletmt/neco-ghc'
 Plugin 'Twinside/vim-hoogle'
+" Two ones below require ghc-mod (cabal install ghc-mod)
+Plugin 'eagletmt/neco-ghc'
+" TODO install Shougo/neocomplete, but earlier add +Lua option to vim
 Plugin 'eagletmt/ghcmod-vim'
 " Dependency of ghcmod-vim, requires to run make
 Plugin 'Shougo/vimproc.vim'
+" Two ones below require hdevtools (cabal install hdevtools)
+Plugin 'dan-t/vim-hsimport'
+Plugin 'bitc/vim-hdevtools'
 Plugin 'neapel/vim-bnfc-syntax'
 " It has problems with opening larger files
 " Plugin 'chrisbra/csv.vim'
@@ -47,6 +59,11 @@ Plugin 'craigemery/vim-autotag'
 Plugin 'sudo.vim'
 Plugin 'mattboehm/vim-accordion'
 Plugin 'justincampbell/vim-eighties'
+" Plugin 'gabrielelana/vim-markdown'
+Plugin 'suan/vim-instant-markdown'
+" Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'bronson/vim-trailing-whitespace'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " end of vundle lines
@@ -73,6 +90,8 @@ set fo+=t
 " For spell checking
 set spelllang=en_gb
 set spell
+set shell=bash\ -i
+set tags+=tags;$HOME
 
 autocmd BufEnter * colorscheme molokai
 autocmd BufEnter *.py colorscheme monokai
@@ -82,6 +101,12 @@ inoremap {{     {
 inoremap {}     {}
 
 syntax on
+
+" Tabs easy navigation
+nnoremap tl :tabnext<CR>
+nnoremap th :tabprev<CR>
+nnoremap tn :tabnew<CR> 
+nnoremap td  :tabclose<CR>
 
 " NERDTree
 "
@@ -119,11 +144,19 @@ set wildignore+=*/venv/*
 "         \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
 "         \ "%:p" <CR>
 "
-let g:LatexBox_latexmk_preview_continuously = 1
+let g:LatexBox_latexmk_preview_continuously = 0
 let g:LatexBox_quickfix = 2
 let g:LatexBox_latexmk_async = 0 " on my linux vim, not server support
 " ]] closes last environment
 imap ]] <Plug>LatexCloseCurEnv
+imap <buffer> [[     \begin{
+
+
+" Vimtex options
+" let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+" let g:vimtex_view_general_options = '-r @line @pdf @tex'
+" let g:vimtex_view_general_options_latexmk = '-r'
+" let g:vimtex_fold_enabled = 0 "So large files can open more easily
 
 " Syntastic options
 "
@@ -144,6 +177,9 @@ let g:haskell_enable_static_pointers = 1
 " neco-ghc options
 "
 let g:necoghc_enable_detailed_browse = 1
+" Disable haskell-vim omnifunc and set neco
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " Pydocstring settings
 "
@@ -152,3 +188,26 @@ set softtabstop=4
 " Startify settings
 let g:startify_custom_header =
       \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val') + ['','']
+
+" options for haskell auto tag file generating
+" Add these to your vimrc to automatically keep the tags file up to date.
+" Unfortunately silent means the errors look a little ugly, I suppose I could
+" capture those and print them out with echohl WarningMsg.
+" Requires fast-tags (cabal install fast-tags)
+au BufWritePost *.hs            silent !init-tags %
+au BufWritePost *.hsc           silent !init-tags %
+
+" vim-hdevtools options - changable over projects
+au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+" TODO changable over projects, move to session.vim
+let g:syntastic_haskell_hdevtools_args = '-g-ibnfc -g-Wall -g--make -g-v'
+
+" For ultisnips
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" Better whitespace
+highlight ExtraWhitespace ctermbg=red
