@@ -8,6 +8,10 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" If later written, there is problem with loading plugins when using fish
+" shell.
+set shell=bash "\ -i
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -30,7 +34,7 @@ Plugin 'tpope/vim-fugitive'
 " For syntastic jumping
 Plugin 'tpope/vim-unimpaired'
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'davidhalter/jedi-vim'
+" Plugin 'davidhalter/jedi-vim' " Now you are trying to use YCM.
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
@@ -63,6 +67,17 @@ Plugin 'justincampbell/vim-eighties'
 Plugin 'suan/vim-instant-markdown'
 " Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'bronson/vim-trailing-whitespace'
+" For R
+Plugin 'ervandew/screen'
+Plugin 'vim-scripts/promela.vim'
+Plugin 'Valloric/MatchTagAlways'
+" You need to manually install plugin Vim-R-plugin, everything is in docs
+" Below requires compilation
+" cd ~/.vim/bundle/YouCompleteMe
+" ./install.py --clang-completer
+Plugin 'Valloric/YouCompleteMe'
+" May require python interpreter in ~/.vim/bundle/YCM-Generator/config_gen.py
+Plugin 'rdnetto/YCM-Generator'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -90,7 +105,6 @@ set fo+=t
 " For spell checking
 set spelllang=en_gb
 set spell
-set shell=bash\ -i
 set tags+=tags;$HOME
 
 autocmd BufEnter * colorscheme molokai
@@ -105,7 +119,7 @@ syntax on
 " Tabs easy navigation
 nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
-nnoremap tn :tabnew<CR> 
+nnoremap tn :tabnew<CR>
 nnoremap td  :tabclose<CR>
 
 " NERDTree
@@ -187,6 +201,7 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 " Pydocstring settings
 "
 set softtabstop=4
+nmap <silent> <C-m> <Plug>(pydocstring)
 
 " Startify settings
 let g:startify_custom_header =
@@ -206,11 +221,12 @@ au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
 " TODO changable over projects, move to session.vim
 let g:syntastic_haskell_hdevtools_args = '-g-ibnfc -g-Wall -g--make -g-v'
 
+" Not used now
 " For ultisnips
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Better whitespace
 highlight ExtraWhitespace ctermbg=red
