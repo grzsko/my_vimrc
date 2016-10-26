@@ -34,7 +34,7 @@ Plugin 'tpope/vim-fugitive'
 " For syntastic jumping
 Plugin 'tpope/vim-unimpaired'
 Plugin 'terryma/vim-multiple-cursors'
-" Plugin 'davidhalter/jedi-vim' " Now you are trying to use YCM.
+Plugin 'davidhalter/jedi-vim'
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
@@ -52,6 +52,10 @@ Plugin 'Shougo/vimproc.vim'
 " Two ones below require hdevtools (cabal install hdevtools)
 Plugin 'dan-t/vim-hsimport'
 Plugin 'bitc/vim-hdevtools'
+" Requires installing fast-tags (cabal install fast-tags)
+" also it does not work properly
+" Plugin 'elaforge/fast-tags'
+Plugin 'itchyny/vim-haskell-indent'
 Plugin 'neapel/vim-bnfc-syntax'
 " It has problems with opening larger files
 " Plugin 'chrisbra/csv.vim'
@@ -71,13 +75,16 @@ Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'ervandew/screen'
 Plugin 'vim-scripts/promela.vim'
 Plugin 'Valloric/MatchTagAlways'
+" Matches tags like parentheses in XML, HTML and enables jumping.
+Plugin 'tmhedberg/matchit'
+
 " You need to manually install plugin Vim-R-plugin, everything is in docs
 " Below requires compilation
 " cd ~/.vim/bundle/YouCompleteMe
 " ./install.py --clang-completer
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 " May require python interpreter in ~/.vim/bundle/YCM-Generator/config_gen.py
-Plugin 'rdnetto/YCM-Generator'
+" Plugin 'rdnetto/YCM-Generator'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -103,9 +110,10 @@ set textwidth=79
 set colorcolumn=80
 set fo+=t
 " For spell checking
-set spelllang=en_gb
+set spelllang=en_gb,pl
 set spell
 set tags+=tags;$HOME
+set backspace=indent,eol,start " Usable in soome linuxes (not default)
 
 autocmd BufEnter * colorscheme molokai
 autocmd BufEnter *.py colorscheme monokai
@@ -158,6 +166,7 @@ set wildignore+=*/venv/*
 "         \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
 "         \ "%:p" <CR>
 "
+let maplocalleader = "\\"
 let g:LatexBox_latexmk_preview_continuously = 0
 let g:LatexBox_quickfix = 2
 let g:LatexBox_latexmk_async = 0 " on my linux vim, not server support
@@ -175,7 +184,7 @@ imap <buffer> [[     \begin{
 " Syntastic options
 "
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_python_checkers = ['pep8', 'pylint']
+let g:syntastic_python_checkers = ['flake8', 'pydocstyle']
 " in order to automatically jumping
 let g:syntastic_always_populate_loc_list = 1
 " for R
@@ -206,6 +215,8 @@ nmap <silent> <C-m> <Plug>(pydocstring)
 " Startify settings
 let g:startify_custom_header =
       \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val') + ['','']
+" startify complains about viminfo
+set viminfo='100,n$HOME/.vim/files/info/viminfo
 
 " options for haskell auto tag file generating
 " Add these to your vimrc to automatically keep the tags file up to date.
@@ -216,8 +227,8 @@ au BufWritePost *.hs            silent !init-tags %
 au BufWritePost *.hsc           silent !init-tags %
 
 " vim-hdevtools options - changable over projects
-au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+" au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+" au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
 " TODO changable over projects, move to session.vim
 let g:syntastic_haskell_hdevtools_args = '-g-ibnfc -g-Wall -g--make -g-v'
 
