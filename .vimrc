@@ -243,5 +243,6 @@ let g:syntastic_haskell_hdevtools_args = '-g-ibnfc -g-Wall -g--make -g-v'
 " Better whitespace
 highlight ExtraWhitespace ctermbg=red
 
-" Dehighlighting search result
-nnoremap <esc> :noh<return><esc>
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+" Another way working on linux.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
