@@ -216,6 +216,7 @@ nmap <silent> <C-m> <Plug>(pydocstring)
 let g:startify_custom_header =
       \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val') + ['','']
 " startify complains about viminfo
+" Only on Linux, mac complains terribly!
 set viminfo='100,n$HOME/.vim/files/info/viminfo
 
 " options for haskell auto tag file generating
@@ -241,3 +242,6 @@ let g:syntastic_haskell_hdevtools_args = '-g-ibnfc -g-Wall -g--make -g-v'
 
 " Better whitespace
 highlight ExtraWhitespace ctermbg=red
+
+" Dehighlighting search result
+nnoremap <esc> :noh<return><esc>
