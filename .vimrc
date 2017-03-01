@@ -64,19 +64,27 @@ Plugin 'mhinz/vim-startify'
 Plugin 'mattboehm/vim-unstack'
 Plugin 'renyard/vim-git-flow-format'
 Plugin 'craigemery/vim-autotag'
-Plugin 'sudo.vim'
+Plugin 'vim-scripts/sudo.vim'
 Plugin 'mattboehm/vim-accordion'
 Plugin 'justincampbell/vim-eighties'
 " Plugin 'gabrielelana/vim-markdown'
+" Below requires npm, for linux: xdg-utils, curl, for Debian
+" like:nodejs-legacy
+" then: [sudo] npm -g install instant-markdown-d
 Plugin 'suan/vim-instant-markdown'
 " Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'bronson/vim-trailing-whitespace'
 " For R
-Plugin 'ervandew/screen'
+" Plugin 'ervandew/screen'
 Plugin 'vim-scripts/promela.vim'
+" Below just highlights tags.
 Plugin 'Valloric/MatchTagAlways'
 " Matches tags like parentheses in XML, HTML and enables jumping.
 Plugin 'tmhedberg/matchit'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'tpope/vim-surround'
+Plugin 'spf13/vim-autoclose'
+"TODO find better plugin which works nicely with curly brackets
 
 " You need to manually install plugin Vim-R-plugin, everything is in docs
 " Below requires compilation
@@ -113,7 +121,8 @@ set fo+=t
 set spelllang=en_gb,pl
 set spell
 set tags+=tags;$HOME
-set backspace=indent,eol,start " Usable in soome linuxes (not default)
+set backspace=indent,eol,start " Usable in some linuxes (not default)
+set splitright
 
 autocmd BufEnter * colorscheme molokai
 autocmd BufEnter *.py colorscheme monokai
@@ -142,7 +151,7 @@ nnoremap <silent> <F9> :TagbarToggle<CR>
 
 " Gundo
 "
-nnoremap <F8> :GundoToggle<CR>
+nnoremap <F10> :GundoToggle<CR>
 " Gundo display on right side (on left there is nerdtree)
 let g:gundo_right = 1
 
@@ -184,7 +193,7 @@ imap <buffer> [[     \begin{
 " Syntastic options
 "
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_python_checkers = ['flake8', 'pydocstyle']
+let g:syntastic_python_checkers = ['flake8', 'pep257']
 " in order to automatically jumping
 let g:syntastic_always_populate_loc_list = 1
 " for R
@@ -246,3 +255,6 @@ highlight ExtraWhitespace ctermbg=red
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 " Another way working on linux.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+" For Autopep8
+autocmd FileType python map <buffer> <F3> :call Autopep8()<CR>
