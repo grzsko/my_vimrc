@@ -81,6 +81,10 @@ Plugin 'vim-scripts/promela.vim'
 Plugin 'Valloric/MatchTagAlways'
 " Matches tags like parentheses in XML, HTML and enables jumping.
 Plugin 'tmhedberg/matchit'
+Plugin 'Chiel92/vim-autoformat'
+" Something for snippets
+Plugin 'SirVer/ultisnips' " engine
+Plugin 'honza/vim-snippets' " snippets db
 Plugin 'tell-k/vim-autopep8'
 Plugin 'tpope/vim-surround'
 Plugin 'spf13/vim-autoclose'
@@ -141,7 +145,7 @@ nnoremap td  :tabclose<CR>
 
 " NERDTree
 "
-nnoremap <silent> <F5> :NERDTreeToggle<CR>
+nnoremap <silent> <F4> :NERDTreeToggle<CR>
 "Sometimes there is a problem with badly compiled vim, use
 "let g:NERDTreeDirArrows=0
 
@@ -183,17 +187,10 @@ let g:LatexBox_latexmk_async = 0 " on my linux vim, not server support
 imap ]] <Plug>LatexCloseCurEnv
 imap <buffer> [[     \begin{
 
-
-" Vimtex options
-" let g:vimtex_view_general_viewer = '/Applications/Skim.app/Contents/SharedSupport/displayline'
-" let g:vimtex_view_general_options = '-r @line @pdf @tex'
-" let g:vimtex_view_general_options_latexmk = '-r'
-" let g:vimtex_fold_enabled = 0 "So large files can open more easily
-
 " Syntastic options
 "
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_python_checkers = ['flake8', 'pep257']
+let g:syntastic_python_checkers = ['flake8', 'pydocstyle']
 " in order to automatically jumping
 let g:syntastic_always_populate_loc_list = 1
 " for R
@@ -242,13 +239,6 @@ au BufWritePost *.hsc           silent !init-tags %
 " TODO changable over projects, move to session.vim
 let g:syntastic_haskell_hdevtools_args = '-g-ibnfc -g-Wall -g--make -g-v'
 
-" Not used now
-" For ultisnips
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
 " Better whitespace
 highlight ExtraWhitespace ctermbg=red
 
@@ -256,5 +246,16 @@ highlight ExtraWhitespace ctermbg=red
 " Another way working on linux.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
+noremap <F2> :Autoformat<CR>
+
+" For snippets
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 " For Autopep8
-autocmd FileType python map <buffer> <F3> :call Autopep8()<CR>
+autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
