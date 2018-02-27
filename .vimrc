@@ -22,7 +22,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 " list of installed colorschemes
 Plugin 'tomasr/molokai'
-Plugin 'sickill/vim-monokai'
+Plugin 'morhetz/gruvbox'
+" Plugin 'sickill/vim-monokai'
 " list of installed plugins
 Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
@@ -63,7 +64,7 @@ Plugin 'neapel/vim-bnfc-syntax'
 Plugin 'mhinz/vim-startify'
 Plugin 'mattboehm/vim-unstack'
 Plugin 'renyard/vim-git-flow-format'
-Plugin 'craigemery/vim-autotag'
+" Plugin 'craigemery/vim-autotag'
 Plugin 'vim-scripts/sudo.vim'
 Plugin 'mattboehm/vim-accordion'
 Plugin 'justincampbell/vim-eighties'
@@ -73,7 +74,9 @@ Plugin 'justincampbell/vim-eighties'
 " then: [sudo] npm -g install instant-markdown-d
 Plugin 'suan/vim-instant-markdown'
 " Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'bronson/vim-trailing-whitespace'
+" TODO correct higlihting
+Plugin 'vim-scripts/ShowTrailingWhitespace'
+Plugin 'vim-scripts/DeleteTrailingWhitespace'
 " For R
 " Plugin 'ervandew/screen'
 Plugin 'vim-scripts/promela.vim'
@@ -82,21 +85,23 @@ Plugin 'Valloric/MatchTagAlways'
 " Matches tags like parentheses in XML, HTML and enables jumping.
 Plugin 'tmhedberg/matchit'
 Plugin 'Chiel92/vim-autoformat'
-" Something for snippets
-Plugin 'SirVer/ultisnips' " engine
-Plugin 'honza/vim-snippets' " snippets db
 Plugin 'tell-k/vim-autopep8'
 Plugin 'tpope/vim-surround'
 Plugin 'spf13/vim-autoclose'
 "TODO find better plugin which works nicely with curly brackets
+Plugin 'airblade/vim-gitgutter'
+Plugin 'Rip-Rip/clang_complete'
+Plugin 'vim-scripts/a.vim'
+Plugin 'vim-scripts/c.vim'
+Plugin 'chazy/cscope_maps'
+" Plugin 'artur-shaik/vim-javacomplete2'
+Plugin 'jmcantrell/vim-virtualenv'
+
 
 " You need to manually install plugin Vim-R-plugin, everything is in docs
 " Below requires compilation
 " cd ~/.vim/bundle/YouCompleteMe
 " ./install.py --clang-completer
-" Plugin 'Valloric/YouCompleteMe'
-" May require python interpreter in ~/.vim/bundle/YCM-Generator/config_gen.py
-" Plugin 'rdnetto/YCM-Generator'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -128,12 +133,15 @@ set tags+=tags;$HOME
 set backspace=indent,eol,start " Usable in some linuxes (not default)
 set splitright
 
-autocmd BufEnter * colorscheme molokai
-autocmd BufEnter *.py colorscheme monokai
+colorscheme gruvbox
+set background=dark    " Setting dark mode
+let g:gruvbox_contrast_dark='hard'
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
+
+highlight ShowTrailingWhitespace ctermbg=Red guibg=Red
 
 syntax on
 
@@ -151,10 +159,13 @@ nnoremap <silent> <F4> :NERDTreeToggle<CR>
 
 " Tagbar
 "
-nnoremap <silent> <F9> :TagbarToggle<CR>
+nnoremap <silent> <F11> :TagbarToggle<CR>
 
 " Gundo
 "
+if has('python3')
+    let g:gundo_prefer_python3 = 1
+endif
 nnoremap <F10> :GundoToggle<CR>
 " Gundo display on right side (on left there is nerdtree)
 let g:gundo_right = 1
@@ -186,11 +197,14 @@ let g:LatexBox_latexmk_async = 0 " on my linux vim, not server support
 " ]] closes last environment
 imap ]] <Plug>LatexCloseCurEnv
 imap <buffer> [[     \begin{
+" needed for omni completion
+let g:tex_flavor='latex'
 
 " Syntastic options
 "
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_python_checkers = ['flake8', 'pydocstyle']
+let g:syntastic_c_checkers = ['gcc', 'splint']
 " in order to automatically jumping
 let g:syntastic_always_populate_loc_list = 1
 " for R
@@ -239,8 +253,6 @@ au BufWritePost *.hsc           silent !init-tags %
 " TODO changable over projects, move to session.vim
 let g:syntastic_haskell_hdevtools_args = '-g-ibnfc -g-Wall -g--make -g-v'
 
-" Better whitespace
-highlight ExtraWhitespace ctermbg=red
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 " Another way working on linux.
@@ -248,14 +260,15 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 noremap <F2> :Autoformat<CR>
 
-" For snippets
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
 " For Autopep8
 autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
+
+" For clang-complete
+" Option only on Mac, on Linux change path
+" let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+
+" From wikia for grep
+:nnoremap gr :grep <cword> *<CR>
+:nnoremap Gr :grep <cword> %:p:h/*<CR>
+:nnoremap gR :grep '\b<cword>\b' *<CR>
+:nnoremap GR :grep '\b<cword>\b' %:p:h/*<CR>
