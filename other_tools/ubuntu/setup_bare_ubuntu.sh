@@ -13,6 +13,10 @@ cp ~/my_vimrc/.vimrc ~/
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 mkdir -p ~/.vim/files/info
+mkdir -p ~/.vim/spell
+cd ~/.vim/spell/
+wget http://ftp.vim.org/vim/runtime/spell/pl.utf-8.spl
+cd ~
 
 # ZSH
 sudo apt-get install -y zsh curl

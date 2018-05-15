@@ -126,12 +126,15 @@ set number
 set textwidth=79
 set colorcolumn=80
 set fo+=t
-" For spell checking
-set spelllang=en_gb,pl
-set spell
 set tags+=tags;$HOME
 set backspace=indent,eol,start " Usable in some linuxes (not default)
 set splitright
+set encoding=utf-8
+set fileencoding=utf-8
+" For spell checking
+set spelllang=en_gb,pl
+set spell
+
 
 colorscheme gruvbox
 set background=dark    " Setting dark mode
