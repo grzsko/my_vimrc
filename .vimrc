@@ -73,10 +73,7 @@ Plugin 'justincampbell/vim-eighties'
 " like:nodejs-legacy
 " then: [sudo] npm -g install instant-markdown-d
 Plugin 'suan/vim-instant-markdown'
-" Plugin 'ntpeters/vim-better-whitespace'
-" TODO correct higlihting
-Plugin 'vim-scripts/ShowTrailingWhitespace'
-Plugin 'vim-scripts/DeleteTrailingWhitespace'
+Plugin 'bronson/vim-trailing-whitespace'
 " For R
 " Plugin 'ervandew/screen'
 Plugin 'vim-scripts/promela.vim'
@@ -100,6 +97,9 @@ Plugin 'chazy/cscope_maps'
 " Plugin 'artur-shaik/vim-javacomplete2'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'juneedahamed/vc.vim'
+Plugin 'vim-scripts/python.vim'
+Plugin 'AndrewRadev/undoquit.vim'
+Plugin 'vim-scripts/TeTrIs.vim'
 
 
 " You need to manually install plugin Vim-R-plugin, everything is in docs
@@ -130,12 +130,15 @@ set number
 set textwidth=79
 set colorcolumn=80
 set fo+=t
-" For spell checking
-set spelllang=en_gb,pl
-set spell
 set tags+=tags;$HOME
 set backspace=indent,eol,start " Usable in some linuxes (not default)
 set splitright
+set encoding=utf-8
+set fileencoding=utf-8
+" For spell checking
+set spelllang=en_gb,pl
+set spell
+
 
 colorscheme gruvbox
 set background=dark    " Setting dark mode
@@ -145,8 +148,6 @@ inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
 
-highlight ShowTrailingWhitespace ctermbg=Red guibg=Red
-
 syntax on
 
 " Tabs easy navigation
@@ -154,6 +155,9 @@ nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
 nnoremap tn :tabnew<CR>
 nnoremap td  :tabclose<CR>
+
+" No more ex mode!
+map Q <Nop>
 
 " NERDTree
 "
@@ -265,7 +269,7 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 noremap <F2> :Autoformat<CR>
 
 " For Autopep8
-autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
+autocmd FileType python noremap <buffer> <F3> :call Autopep8()<CR>
 
 " For clang-complete
 " Option only on Mac, on Linux change path
@@ -276,3 +280,8 @@ autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
 :nnoremap Gr :grep <cword> %:p:h/*<CR>
 :nnoremap gR :grep '\b<cword>\b' *<CR>
 :nnoremap GR :grep '\b<cword>\b' %:p:h/*<CR>
+
+" For utags
+map <F6> :copen<CR>
+map <F7> :cprevious<CR>
+map <F8> :cnext<CR>
