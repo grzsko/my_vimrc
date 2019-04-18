@@ -85,6 +85,9 @@ Plugin 'Valloric/MatchTagAlways'
 " Matches tags like parentheses in XML, HTML and enables jumping.
 Plugin 'tmhedberg/matchit'
 Plugin 'Chiel92/vim-autoformat'
+" Something for snippets
+" Plugin 'SirVer/ultisnips' " engine
+" Plugin 'honza/vim-snippets' " snippets db
 Plugin 'tell-k/vim-autopep8'
 Plugin 'tpope/vim-surround'
 Plugin 'spf13/vim-autoclose'
@@ -96,6 +99,7 @@ Plugin 'vim-scripts/c.vim'
 Plugin 'chazy/cscope_maps'
 " Plugin 'artur-shaik/vim-javacomplete2'
 Plugin 'jmcantrell/vim-virtualenv'
+Plugin 'juneedahamed/vc.vim'
 
 
 " You need to manually install plugin Vim-R-plugin, everything is in docs
