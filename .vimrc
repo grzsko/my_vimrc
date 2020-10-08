@@ -1,8 +1,10 @@
-" Grze_Sko actual configuration of vim.
+" GrzSko actual configuration of vim.
 " Mainly containts a list of plugins and configs required by plugins. Plugins
 " are managed by Vundle, usually updating of this file requires typing
 " :PluginClean and :PluginInstall. Some plugins require additional
 " configuration, usually described in plugins' list.
+"
+" Recently updated: 08.10.2020
 
 " First lines are required by vundle
 set nocompatible              " be iMproved, required
@@ -21,14 +23,13 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 " list of installed colorschemes
-Plugin 'tomasr/molokai'
 Plugin 'morhetz/gruvbox'
-" Plugin 'sickill/vim-monokai'
 " list of installed plugins
 Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
+Plugin 'preservim/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'majutsushi/tagbar'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
