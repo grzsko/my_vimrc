@@ -4,7 +4,7 @@
 " :PluginClean and :PluginInstall. Some plugins require additional
 " configuration, usually described in plugins' list.
 "
-" Recently updated: 08.10.2020
+" Recently updated: 09.10.2020
 
 " First lines are required by vundle
 set nocompatible              " be iMproved, required
@@ -73,9 +73,14 @@ Plugin 'AndrewRadev/undoquit.vim'
 " Mandatory plugin!
 Plugin 'vim-scripts/TeTrIs.vim'
 " For C/C++
-Plugin 'Rip-Rip/clang_complete'
+" Try to replace with ycm
+" Plugin 'Rip-Rip/clang_complete'
 Plugin 'vim-scripts/a.vim'
-Plugin 'vim-scripts/c.vim'
+" Rather difficult in usage
+" Plugin 'vim-scripts/c.vim'
+" Warning! Requires additional configuration (below).
+" TODO configure for python
+Plugin 'ycm-core/YouCompleteMe'
 " For Python3
 Plugin 'vim-scripts/python.vim'
 " TODO configure airline with virtualenv
@@ -85,9 +90,21 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'pixelneo/vim-python-docstring'
 Plugin 'Vimjas/vim-python-pep8-indent'
 
-" Below requires compilation
+" Configuration for YCM for C++ (brought from
+" https://xuechendi.github.io/2019/11/11/VIM-CPP-IDE-2019-111-11-VIM_CPP_IDE)
+"
 " cd ~/.vim/bundle/YouCompleteMe
-" ./install.py --clang-completer
+" python3 install.py --clangd-completer
+" cd ~
+" mkdir ycm_build
+" cd ycm_build
+" cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+" cmake --build . --target ycm_core --config Release
+" pip install compiledb # for projects automagical config
+" # # Then per every project
+" cd ${CPP project}
+" compiledb -n make
+" # now you should see a file called "compile_commands.json" in your root dir.
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -124,9 +141,11 @@ set spelllang=en_gb,pl
 set spell
 
 
-colorscheme gruvbox
 set background=dark    " Setting dark mode
-let g:gruvbox_contrast_dark='hard'
+" Maybe hard is too hard
+" let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox
+
 
 " Choose airline theme
 "
@@ -230,8 +249,3 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 :nnoremap Gr :grep <cword> %:p:h/*<CR>
 :nnoremap gR :grep '\b<cword>\b' *<CR>
 :nnoremap GR :grep '\b<cword>\b' %:p:h/*<CR>
-
-" For utags
-map <F6> :copen<CR>
-map <F7> :cprevious<CR>
-map <F8> :cnext<CR>
