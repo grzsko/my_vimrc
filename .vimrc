@@ -30,41 +30,21 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'majutsushi/tagbar'
-Plugin 'bling/vim-airline'
+Plugin 'preservim/tagbar'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
-" For syntastic jumping
-Plugin 'tpope/vim-unimpaired'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'heavenshell/vim-pydocstring'
-Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'airblade/vim-gitgutter'
+" Plugin 'terryma/vim-multiple-cursors'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
-" Plugin 'lervag/vimtex'
+" TODO think if replaceable below (ale?)
 Plugin 'scrooloose/syntastic'
 Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'neovimhaskell/haskell-vim'
-Plugin 'Twinside/vim-hoogle'
-" Two ones below require ghc-mod (cabal install ghc-mod)
-Plugin 'eagletmt/neco-ghc'
-" TODO install Shougo/neocomplete, but earlier add +Lua option to vim
-Plugin 'eagletmt/ghcmod-vim'
-" Dependency of ghcmod-vim, requires to run make
-Plugin 'Shougo/vimproc.vim'
-" Two ones below require hdevtools (cabal install hdevtools)
-Plugin 'dan-t/vim-hsimport'
-Plugin 'bitc/vim-hdevtools'
-" Requires installing fast-tags (cabal install fast-tags)
-" also it does not work properly
-" Plugin 'elaforge/fast-tags'
-Plugin 'itchyny/vim-haskell-indent'
 Plugin 'neapel/vim-bnfc-syntax'
-" It has problems with opening larger files
-" Plugin 'chrisbra/csv.vim'
 " Requires cowsay and fortune
 Plugin 'mhinz/vim-startify'
-Plugin 'mattboehm/vim-unstack'
-Plugin 'renyard/vim-git-flow-format'
+" Below interesting but rather unuseful
+" Plugin 'mattboehm/vim-unstack'
 " Plugin 'craigemery/vim-autotag'
 Plugin 'vim-scripts/sudo.vim'
 Plugin 'mattboehm/vim-accordion'
@@ -75,35 +55,36 @@ Plugin 'justincampbell/vim-eighties'
 " then: [sudo] npm -g install instant-markdown-d
 Plugin 'suan/vim-instant-markdown'
 Plugin 'bronson/vim-trailing-whitespace'
-" For R
-" Plugin 'ervandew/screen'
-Plugin 'vim-scripts/promela.vim'
 " Below just highlights tags.
 Plugin 'Valloric/MatchTagAlways'
 " Matches tags like parentheses in XML, HTML and enables jumping.
 Plugin 'tmhedberg/matchit'
-Plugin 'Chiel92/vim-autoformat'
-" Something for snippets
-" Plugin 'SirVer/ultisnips' " engine
-" Plugin 'honza/vim-snippets' " snippets db
-Plugin 'tell-k/vim-autopep8'
+" Below usable but needs to be learnt"
 Plugin 'tpope/vim-surround'
-Plugin 'spf13/vim-autoclose'
-"TODO find better plugin which works nicely with curly brackets
-Plugin 'airblade/vim-gitgutter'
+" Plugin 'spf13/vim-autoclose'
+" Let's give a try to one below
+Plugin 'jiangmiao/auto-pairs'
+" First, configure cscope
+" Plugin 'chazy/cscope_maps'
+" Plugin 'artur-shaik/vim-javacomplete2'
+" Below usable when working with SVN
+Plugin 'juneedahamed/vc.vim'
+Plugin 'AndrewRadev/undoquit.vim'
+" Mandatory plugin!
+Plugin 'vim-scripts/TeTrIs.vim'
+" For C/C++
 Plugin 'Rip-Rip/clang_complete'
 Plugin 'vim-scripts/a.vim'
 Plugin 'vim-scripts/c.vim'
-Plugin 'chazy/cscope_maps'
-" Plugin 'artur-shaik/vim-javacomplete2'
-Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'juneedahamed/vc.vim'
+" For Python3
 Plugin 'vim-scripts/python.vim'
-Plugin 'AndrewRadev/undoquit.vim'
-Plugin 'vim-scripts/TeTrIs.vim'
+" TODO configure airline with virtualenv
+Plugin 'jmcantrell/vim-virtualenv'
+" TODO below, maybe replace with kite plugin
+Plugin 'davidhalter/jedi-vim'
+Plugin 'pixelneo/vim-python-docstring'
+Plugin 'Vimjas/vim-python-pep8-indent'
 
-
-" You need to manually install plugin Vim-R-plugin, everything is in docs
 " Below requires compilation
 " cd ~/.vim/bundle/YouCompleteMe
 " ./install.py --clang-completer
@@ -113,6 +94,8 @@ filetype plugin indent on    " required
 " end of vundle lines
 
 set t_Co=256
+" Below probably same two lines, :-D
+syntax on
 syntax enable
 set showmode
 set showcmd
@@ -131,7 +114,7 @@ set number
 set textwidth=79
 set colorcolumn=80
 set fo+=t
-set tags+=tags;$HOME
+"set tags+=tags;$HOME
 set backspace=indent,eol,start " Usable in some linuxes (not default)
 set splitright
 set encoding=utf-8
@@ -144,14 +127,20 @@ set spell
 colorscheme gruvbox
 set background=dark    " Setting dark mode
 let g:gruvbox_contrast_dark='hard'
-inoremap {      {}<Left>
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap {{     {
-inoremap {}     {}
 
-syntax on
+" Choose airline theme
+"
+let g:airline_theme='base16'
+
+" Trying plugin for now"
+" inoremap {      {}<Left>
+" inoremap {<CR>  {<CR>}<Esc>O
+" inoremap {{     {
+" inoremap {}     {}
+
 
 " Tabs easy navigation
+"
 nnoremap tl :tabnext<CR>
 nnoremap th :tabprev<CR>
 nnoremap tn :tabnew<CR>
@@ -179,9 +168,6 @@ nnoremap <F10> :GundoToggle<CR>
 " Gundo display on right side (on left there is nerdtree)
 let g:gundo_right = 1
 
-" Something for airline
-"
-set laststatus=2
 
 " Ctrlp options
 "
@@ -216,30 +202,10 @@ let g:syntastic_python_checkers = ['flake8', 'pydocstyle']
 let g:syntastic_c_checkers = ['gcc', 'splint']
 " in order to automatically jumping
 let g:syntastic_always_populate_loc_list = 1
-" for R
-let g:syntastic_enable_r_lintr_checker = 1
-let g:syntastic_r_checkers = 1
-
-" Haskell-vim options
-"
-let g:haskell_enable_quantification = 1
-let g:haskell_enable_recursivedo = 1
-let g:haskell_enable_arrowsyntax = 1
-let g:haskell_enable_pattern_synonyms = 1
-let g:haskell_enable_typeroles = 1
-let g:haskell_enable_static_pointers = 1
-
-" neco-ghc options
-"
-let g:necoghc_enable_detailed_browse = 1
-" Disable haskell-vim omnifunc and set neco
-let g:haskellmode_completion_ghc = 0
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " Pydocstring settings
 "
-set softtabstop=4
-nmap <silent> <C-m> <Plug>(pydocstring)
+let g:python_style = 'numpy'
 
 " Startify settings
 let g:startify_custom_header =
@@ -248,35 +214,18 @@ let g:startify_custom_header =
 " Only on Linux, mac complains terribly!
 set viminfo='100,n$HOME/.vim/files/info/viminfo
 
-" options for haskell auto tag file generating
-" Add these to your vimrc to automatically keep the tags file up to date.
-" Unfortunately silent means the errors look a little ugly, I suppose I could
-" capture those and print them out with echohl WarningMsg.
-" Requires fast-tags (cabal install fast-tags)
-au BufWritePost *.hs            silent !init-tags %
-au BufWritePost *.hsc           silent !init-tags %
-
-" vim-hdevtools options - changable over projects
-" au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
-" au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
-" TODO changable over projects, move to session.vim
-let g:syntastic_haskell_hdevtools_args = '-g-ibnfc -g-Wall -g--make -g-v'
-
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 " Another way working on linux.
+"
 nnoremap <silent> <C-l> :nohl<CR><C-l>
-
-noremap <F2> :Autoformat<CR>
-
-" For Autopep8
-autocmd FileType python noremap <buffer> <F3> :call Autopep8()<CR>
 
 " For clang-complete
 " Option only on Mac, on Linux change path
 " let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 
 " From wikia for grep
+"
 :nnoremap gr :grep <cword> *<CR>
 :nnoremap Gr :grep <cword> %:p:h/*<CR>
 :nnoremap gR :grep '\b<cword>\b' *<CR>
