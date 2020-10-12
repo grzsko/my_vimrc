@@ -239,10 +239,6 @@ set viminfo='100,n$HOME/.vim/files/info/viminfo
 "
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
-" For clang-complete
-" Option only on Mac, on Linux change path
-" let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
-
 " From wikia for grep
 "
 :nnoremap gr :grep <cword> *<CR>
