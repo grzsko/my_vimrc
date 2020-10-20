@@ -27,7 +27,8 @@ Plugin 'morhetz/gruvbox'
 " list of installed plugins
 Plugin 'sjl/gundo.vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdcommenter'
+" TODO learn better mappings
+Plugin 'preservim/nerdcommenter'
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'preservim/tagbar'
@@ -82,15 +83,21 @@ Plugin 'vim-scripts/a.vim'
 " TODO configure for python
 Plugin 'ycm-core/YouCompleteMe'
 " For Python3
+" TODO replace below with smth more functional and documented
 Plugin 'vim-scripts/python.vim'
 " TODO configure airline with virtualenv
 Plugin 'jmcantrell/vim-virtualenv'
-" TODO below, maybe replace with kite plugin
-Plugin 'davidhalter/jedi-vim'
+" TODO below, maybe replace with kite plugin (or at least YCM)
+" Plugin 'davidhalter/jedi-vim'
 Plugin 'pixelneo/vim-python-docstring'
 Plugin 'Vimjas/vim-python-pep8-indent'
 
-" Configuration for YCM for C++ (brought from
+call vundle#end()            " required
+filetype plugin indent on    " required
+" end of vundle lines
+
+
+"" Configuration for YCM (YouCompleteMe) for C++ (brought from
 " https://xuechendi.github.io/2019/11/11/VIM-CPP-IDE-2019-111-11-VIM_CPP_IDE)
 "
 " cd ~/.vim/bundle/YouCompleteMe
@@ -106,9 +113,7 @@ Plugin 'Vimjas/vim-python-pep8-indent'
 " compiledb -n make
 " # now you should see a file called "compile_commands.json" in your root dir.
 
-call vundle#end()            " required
-filetype plugin indent on    " required
-" end of vundle lines
+
 
 set t_Co=256
 " Below probably same two lines, :-D
@@ -183,7 +188,7 @@ nnoremap <silent> <F11> :TagbarToggle<CR>
 if has('python3')
     let g:gundo_prefer_python3 = 1
 endif
-nnoremap <F10> :GundoToggle<CR>
+nnoremap <F12> :GundoToggle<CR>
 " Gundo display on right side (on left there is nerdtree)
 let g:gundo_right = 1
 
@@ -195,6 +200,7 @@ set wildignore+=*/venv/*
 " Latex-box options
 "
 " For SyncTex and Skim (only mac)
+" Setup works fine only in macvim (GUI)
 " let g:LatexBox_latexmk_options
 "            \ = "-pdflatex='pdflatex -synctex=1 \%O \%S'"
 
@@ -204,6 +210,8 @@ set wildignore+=*/venv/*
 "         \ <C-R>=line('.')<CR> "<C-R>=LatexBox_GetOutputFile()<CR>"
 "         \ "%:p" <CR>
 "
+" Remember that backward search (jump) Cmd-Shift-click works when leader-ls
+" compiled
 let maplocalleader = "\\"
 let g:LatexBox_latexmk_preview_continuously = 0
 let g:LatexBox_quickfix = 2
@@ -227,12 +235,13 @@ let g:syntastic_always_populate_loc_list = 1
 let g:python_style = 'numpy'
 
 " Startify settings
+"
 let g:startify_custom_header =
       \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val') + ['','']
 " startify complains about viminfo
 " Only on Linux, mac complains terribly!
-set viminfo='100,n$HOME/.vim/files/info/viminfo
-
+" set viminfo='100,n$HOME/.vim/files/info/viminfo
+" Above is legacy, now works fine on default ~/.vimrc
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 " Another way working on linux.
@@ -249,3 +258,10 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 :nnoremap Gr :grep <cword> %:p:h/*<CR>
 :nnoremap gR :grep '\b<cword>\b' *<CR>
 :nnoremap GR :grep '\b<cword>\b' %:p:h/*<CR>
+
+" YCM (YouCompleteMe) options
+"
+" close this terrible window automatically
+let g:ycm_autoclose_preview_window_after_completion=1
+" Jump almost like with tags
+map <leader>] :YcmCompleter GoToDefinitionElseDeclaration<CR>
